@@ -2,11 +2,11 @@ import { useEffect, useState } from "react";
 
 import "./scss/app.scss";
 
-import Header from "./components/header";
-import Categories from "./components/categories";
-import Sort from "./components/sort";
-import PizzaBlock from "./components/pizza-block";
-import Skeleton from "./components/skeleton";
+import Header from "./components/Header";
+import Categories from "./components/Categories";
+import Sort from "./components/Sort";
+import PizzaBlock from "./components/Pizza-block";
+import Skeleton from "./components/Skeleton";
 
 function App() {
   const [items, setItems] = useState([]);
