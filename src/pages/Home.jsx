@@ -9,21 +9,19 @@ const Home = () => {
   const [items, setItems] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
 
-  const getAllPizzas = () =>
+  useEffect(() => {
     fetch('https://62fdd187b9e38585cd57025e.mockapi.io/Pizzas')
       .then((res) => res.json())
-      .then((data) => data)
+      .then((data) => {
+        setItems(data);
+        setIsLoading(false);
+      })
       .catch((e) => console.log(e));
-
-  useEffect(() => {
-    getAllPizzas().then((data) => {
-      setItems(data);
-      setIsLoading(false);
-    });
+    window.scrollTo(0, 0);
   }, []);
 
   return (
-    <>
+    <div className="container">
       <div className="content__top">
         <Categories />
         <Sort />
@@ -34,7 +32,7 @@ const Home = () => {
           ? [...Array(5)].map((value, index) => <Skeleton key={index} />)
           : items.map((pizza) => <PizzaBlock key={pizza.id} {...pizza} />)}
       </div>
-    </>
+    </div>
   );
 };
 
