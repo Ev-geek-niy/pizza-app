@@ -1,16 +1,16 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState } from 'react';
 
-import Categories from "../components/Categories";
-import Sort from "../components/Sort";
-import Skeleton from "../components/Skeleton";
-import PizzaBlock from "../components/Pizza-block";
+import Categories from '../components/Categories';
+import Sort from '../components/Sort';
+import Skeleton from '../components/Skeleton';
+import PizzaBlock from '../components/Pizza-block';
 
 const Home = () => {
   const [items, setItems] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
 
   const getAllPizzas = () =>
-    fetch("https://62fdd187b9e38585cd57025e.mockapi.io/Pizzas")
+    fetch('https://62fdd187b9e38585cd57025e.mockapi.io/Pizzas')
       .then((res) => res.json())
       .then((data) => data)
       .catch((e) => console.log(e));
