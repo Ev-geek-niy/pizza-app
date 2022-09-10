@@ -8,9 +8,21 @@ import PizzaBlock from '../components/Pizza-block';
 const Home = () => {
   const [items, setItems] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
+  const [categoryId, setCategoryId] = useState(0);
+  const [sortType, setSortType] = useState({
+    name: 'популярности',
+    sortProperty: 'rating',
+  });
 
   useEffect(() => {
-    fetch('https://62fdd187b9e38585cd57025e.mockapi.io/Pizzas')
+    setIsLoading(true);
+
+    const category = categoryId > 0 ? categoryId : '';
+    const sortBy = sortType.sortProperty.replace('-', '');
+    const order = sortType.sortProperty.includes('-') ? 'asc' : 'desc';
+    fetch(
+      `https://62fdd187b9e38585cd57025e.mockapi.io/Pizzas?category=${category}&sortBy=${sortBy}&order=${order}`,
+    )
       .then((res) => res.json())
       .then((data) => {
         setItems(data);
@@ -18,13 +30,13 @@ const Home = () => {
       })
       .catch((e) => console.log(e));
     window.scrollTo(0, 0);
-  }, []);
+  }, [categoryId, sortType]);
 
   return (
     <div className="container">
       <div className="content__top">
-        <Categories />
-        <Sort />
+        <Categories value={categoryId} onClickCategory={(id) => setCategoryId(id)} />
+        <Sort value={sortType} onChangeSort={(i) => setSortType(i)} />
       </div>
       <h2 className="content__title">Все пиццы</h2>
       <div className="content__items">
