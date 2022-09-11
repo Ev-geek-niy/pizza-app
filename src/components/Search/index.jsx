@@ -24,7 +24,7 @@ const Search = () => {
       {searchValue && (
         <svg
           className={styles.clearIcon}
-          // onClick={() => setSearchValue('')}
+          onClick={() => setSearchValue('')}
           height="48"
           viewBox="0 0 48 48"
           width="48"
