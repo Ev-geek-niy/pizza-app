@@ -1,6 +1,6 @@
-import { useContext, useEffect, useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import qs from 'qs';
 
 import Categories from '../components/Categories';
@@ -9,7 +9,6 @@ import Skeleton from '../components/Skeleton';
 import PizzaBlock from '../components/Pizza-block';
 import Pagination from '../components/Pagination';
 
-import { SearchContext } from '../App';
 import {
   selectFilter,
   setCategoryId,
@@ -89,7 +88,11 @@ const Home = () => {
     isMounted.current = true;
   }, [categoryId, sort.sortProperty, currentPage]);
 
-  const pizzas = items.map((pizza) => <PizzaBlock key={pizza.id} {...pizza} />);
+  const pizzas = items.map((pizza) => (
+    <Link key={pizza.id} to={`/pizza/${pizza.id}`}>
+      <PizzaBlock {...pizza} />
+    </Link>
+  ));
   const skeletons = [...Array(4)].map((value, index) => <Skeleton key={index} />);
 
   return (
