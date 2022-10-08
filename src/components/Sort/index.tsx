@@ -1,9 +1,14 @@
-import { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 
 import { selectSort, setSort } from '../../redux/slices/filterSlice';
 
-export const sortNames = [
+type sortItem = {
+  name: string;
+  sortProperty: string;
+};
+
+export const sortNames: sortItem[] = [
   { name: 'популярности', sortProperty: 'rating' },
   { name: 'популярности (ASC)', sortProperty: '-rating' },
   { name: 'цене', sortProperty: 'price' },
@@ -12,23 +17,22 @@ export const sortNames = [
   { name: 'алфавиту (ASC)', sortProperty: '-title' },
 ];
 
-const Sort = ({ value, onChangeSort }) => {
+const Sort: React.FC = () => {
   const dispatch = useDispatch();
   const sort = useSelector(selectSort);
-  const sortRef = useRef();
+  const sortRef = useRef<HTMLDivElement>(null);
 
   const [isVisiblePopup, setIsVisiblePopup] = useState(false);
 
-  const onSelectSortType = (obj) => {
+  const onSelectSortType = (obj: sortItem) => {
     dispatch(setSort(obj));
     setIsVisiblePopup(!isVisiblePopup);
   };
 
   useEffect(() => {
-    const handleOutsideClick = (event) => {
+    const handleOutsideClick = (event: any) => {
       let path = event.composedPath().includes(sortRef.current);
       if (!path) {
-        console.log('click inside');
         setIsVisiblePopup(false);
       }
     };

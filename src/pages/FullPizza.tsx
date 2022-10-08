@@ -2,11 +2,11 @@ import { useNavigate, useParams } from 'react-router-dom';
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 
-interface PizzaItem {
+type PizzaItem = {
   imageUrl: string;
   title: string;
   price: number;
-}
+};
 
 const FullPizza: React.FC = () => {
   const [pizza, setPizza] = useState<PizzaItem>();
